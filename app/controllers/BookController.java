@@ -23,16 +23,69 @@ public class BookController extends Controller {
     private final BookService bookService;
 
     @Inject
-    public BookController(BookService bookService, HttpExecutionContext ec) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
+
+    /**
+     * Alle Bücher abfragen
+     *
+     * @param q Suchparameter
+     * @return Buch Liste als JSON
+     */
     public CompletionStage<Result> books(String q) {
         return bookService.get().thenApplyAsync(bookStream ->
                 ok(Json.toJson(bookStream.collect(Collectors.toList())))
         );
     }
 
+
+    /**
+     * Neues Buchdetail erfassen
+     *
+     * @param request
+     * @return neues Buch als JSON
+     */
+    public CompletionStage<Result> create(Http.Request request) {
+        final JsonNode json = request.body().asJson();
+        final Book newBook = Json.fromJson(json, Book.class);
+        return bookService.add(newBook).thenApplyAsync(book -> ok(Json.toJson(book)));
+    }
+
+    /**
+     * Buchdetail für Buch mit ID aktualisieren
+     *
+     * @param id Buch ID
+     * @param request Buch
+     * @return updated book als JSON
+     */
+    public CompletionStage<Result> update(Long id, Http.Request request) {
+        final JsonNode json = request.body().asJson();
+        final Book bookToUpdate = Json.fromJson(json, Book.class);
+        bookToUpdate.setId(id);
+        return bookService.update(bookToUpdate).thenApplyAsync(book -> ok(Json.toJson(book)));
+    }
+
+    /**
+     * Abfragen der Buchdetails für ein Buch mit ID
+     *
+     * @param id Buch ID
+     * @return gesuchtes Buch als JSON
+     */
+    public CompletionStage<Result> details(Long id) {
+        return bookService.get(id).thenApplyAsync(book -> ok(Json.toJson(book)));
+    }
+
+    /**
+     * Buch mit entsprechender ID löschen
+     *
+     * @param id Buch ID
+     * @return boolean
+     */
+    public CompletionStage<Result> delete(Long id) {
+        return bookService.delete(id).thenApplyAsync(removed -> removed ? ok() : internalServerError());
+    }
 
 
     /**
@@ -44,68 +97,4 @@ public class BookController extends Controller {
         final JsonNode json = Json.toJson(bookService.getDummy());
         return ok(json);
     }
-
-    /**
-     * Alle Bücher abfragen
-     *
-     * @param q Suchparameter
-     * @return Buch Liste als JSON
-     */
-    public Result getAll(String q) {
-        final JsonNode json = Json.toJson(bookService.get(q));
-        return ok(json);
-    }
-
-    /**
-     * Neues Buchdetail erfassen
-     *
-     * @param request
-     * @return neues Buch als JSON
-     */
-    public Result add(Http.Request request) {
-        final JsonNode json = request.body().asJson();
-        final Book newBook = Json.fromJson(json, Book.class);
-        bookService.add(newBook);
-        return ok(Json.toJson(newBook));
-    }
-
-    /**
-     * Buchdetail für Buch mit ID aktualisieren
-     *
-     * @param id Buch ID
-     * @param request Buch
-     * @return updated book als JSON
-     */
-    public Result update(Long id, Http.Request request) {
-        final JsonNode json = request.body().asJson();
-        final Book bookToUpdate = Json.fromJson(json, Book.class);
-        bookToUpdate.setId(id);
-        bookService.update(bookToUpdate);
-        return ok(Json.toJson(bookToUpdate));
-    }
-
-    /**
-     * Abfragen der Buchdetails für ein Buch mit ID
-     *
-     * @param id Buch ID
-     * @return gesuchtes Buch als JSON
-     */
-    public Result getSpecific(Long id) {
-        final JsonNode json = Json.toJson(bookService.get(id));
-        return ok(json);
-    }
-
-    /**
-     * Buch mit entsprechender ID löschen
-     *
-     * @param id Buch ID
-     * @return boolean
-     */
-    public Result remove(Long id) {
-        if (bookService.delete(id)) {
-            return ok();
-        }
-        return badRequest();
-    }
-
 }
