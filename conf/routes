@@ -3,29 +3,22 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                   controllers.FrontendController.index()
-
+GET     /                       controllers.FrontendController.index()
 
 # Book routes
 # Alle Bücher abfragen
-GET     /books              controllers.BookController.books(q: String ?= null)
-
+GET     /api/books              controllers.BookController.books(q: String ?= null)
 # Neues Buchdetail erfassen
-POST    /books              controllers.BookController.create(request: Request)
-
+POST    /api/books              controllers.BookController.create(request: Request)
 # Buchdetail mit ID aktualisieren
-PUT     /books/:id          controllers.BookController.update(id: Long, request: Request)
-
+PUT     /api/books/:id          controllers.BookController.update(id: Long, request: Request)
 # Abfragen Buch mit ID
-GET     /books/:id          controllers.BookController.details(id: Long)
-
+GET     /api/books/:id          controllers.BookController.details(id: Long)
 # Buch mit ID löschen
-DELETE  /books/:id          controllers.BookController.delete(id: Long)
-
+DELETE  /api/books/:id          controllers.BookController.delete(id: Long)
 
 # Testmethode Dummy
-GET     /dummy              controllers.BookController.dummy()
-
+GET     /api/dummy              controllers.BookController.dummy()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /*file              controllers.FrontendController.assetOrDefault(file)
+GET     /*file                  controllers.FrontendController.assetOrDefault(file)
