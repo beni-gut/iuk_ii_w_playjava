@@ -27,10 +27,31 @@ public class DefaultBookService {
     /**
      * Return's list of all books.
      *
-     * @return list of all books
+     * @return booklist
      */
-    public Book get() {
-        return null;
+    public ArrayList<Book> get(String q) {
+        return bookList;
+    }
+
+    /**
+     * Adds the given book.
+     *
+     * @param newBook to add
+     * @return added book
+     */
+    public Book add(final Book newBook) {
+        bookList.add(newBook);
+        return newBook;
+    }
+
+    /**
+     * Updates book with given identifier.
+     *
+     * @param bookToUpdate book with updated fields
+     * @return updated book
+     */
+    public Book update(final Book bookToUpdate) {
+        return bookToUpdate;
     }
 
     /**
@@ -62,26 +83,5 @@ public class DefaultBookService {
             }
         }
         return false;
-    }
-
-    /**
-     * Updates book with given identifier.
-     *
-     * @param bookToUpdate book with updated fields
-     * @return updated book
-     */
-    public Book update(final Book bookToUpdate) {
-        return bookToUpdate;
-    }
-
-    /**
-     * Adds the given book.
-     *
-     * @param newBook to add
-     * @return added book
-     */
-    public Book add(final Book newBook) {
-        bookList.add(newBook);
-        return newBook;
     }
 }
