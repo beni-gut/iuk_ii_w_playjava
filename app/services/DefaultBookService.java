@@ -1,12 +1,21 @@
 package services;
 
 import models.Book;
-import java.util.ArrayList;
+import repository.BookRepository;
+
+import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Stream;
 
 
-public class DefaultBookService {
+public class DefaultBookService implements BookService {
 
-    private ArrayList<Book> bookList = new ArrayList<>();
+    private BookRepository bookRepository;
+
+    @Inject
+    public DefaultBookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     /**
      * Testmethode
@@ -29,29 +38,8 @@ public class DefaultBookService {
      *
      * @return booklist
      */
-    public ArrayList<Book> get(String q) {
-        return bookList;
-    }
-
-    /**
-     * Adds the given book.
-     *
-     * @param newBook to add
-     * @return added book
-     */
-    public Book add(final Book newBook) {
-        bookList.add(newBook);
-        return newBook;
-    }
-
-    /**
-     * Updates book with given identifier.
-     *
-     * @param bookToUpdate book with updated fields
-     * @return updated book
-     */
-    public Book update(final Book bookToUpdate) {
-        return bookToUpdate;
+    public CompletionStage<Stream<Book>> get() {
+        return bookRepository.list();
     }
 
     /**
@@ -60,13 +48,8 @@ public class DefaultBookService {
      * @param id book identifier
      * @return book with given identifier or {@code null}
      */
-    public Book get(final Long id) {
-        for (Book book : bookList) {
-            if (id == book.getId()) {
-                return book;
-            }
-        }
-        return null;
+    public CompletionStage<Book> get(final Long id) {
+        return bookRepository.find(id);
     }
 
     /**
@@ -75,13 +58,27 @@ public class DefaultBookService {
      * @param id book identifier
      * @return {@code true} on success  {@code false} on failure
      */
-    public Boolean delete(final Long id) {
-        for (Book book : bookList) {
-            if (id == book.getId()) {
-                bookList.remove(book);
-                return true;
-            }
-        }
-        return false;
+    public CompletionStage<Boolean> delete(final Long id) {
+        return bookRepository.remove(id);
+    }
+
+    /**
+     * Updates book with given identifier.
+     *
+     * @param bookToUpdate book with updated fields
+     * @return updated book
+     */
+    public CompletionStage<Book> update(final Book bookToUpdate) {
+        return bookRepository.update(bookToUpdate);
+    }
+
+    /**
+     * Adds the given book.
+     *
+     * @param newBook to add
+     * @return added book
+     */
+    public CompletionStage<Book> add(final Book newBook) {
+        return bookRepository.add(newBook);
     }
 }

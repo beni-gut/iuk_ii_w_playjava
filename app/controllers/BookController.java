@@ -1,18 +1,38 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import play.libs.Json;
+import models.Book;
 
+import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 
-import models.Book;
+import services.BookService;
 import services.DefaultBookService;
+
+import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
+
+import play.mvc.Http;
 
 
 public class BookController extends Controller {
-    private final DefaultBookService bookService = new DefaultBookService();
+
+    private final BookService bookService;
+
+    @Inject
+    public BookController(BookService bookService, HttpExecutionContext ec) {
+        this.bookService = bookService;
+    }
+
+    public CompletionStage<Result> books(String q) {
+        return bookService.get().thenApplyAsync(bookStream ->
+                ok(Json.toJson(bookStream.collect(Collectors.toList())))
+        );
+    }
+
 
 
     /**
