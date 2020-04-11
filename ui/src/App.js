@@ -18,6 +18,8 @@ function App() {
         >
           Learn React
         </a>
+        <h1>Test, does it reload when i just type something</h1>
+        <p>Incredible</p>
       </header>
     </div>
   );
