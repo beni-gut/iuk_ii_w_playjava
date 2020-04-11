@@ -13,6 +13,17 @@
   }
 }
 
+.navbar {
+  background-color: #282c34;
+}
+.navbar > ul {
+  list-style: none;
+}
+.navbar > ul > li > a {
+  font-size: calc(10px + 2vmin);
+  color: #61dafb;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
