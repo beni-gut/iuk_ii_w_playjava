@@ -1,7 +1,7 @@
 import React from 'react';
 
 import logo from './book.svg';
-import Books from "./book/Books.jsx"
+import Books from "./book/Books.jsx";
 import CreateBook from "./book/CreateBook";
 import './App.css';
 
@@ -11,7 +11,6 @@ import {
     Route,
     Link
 } from "react-router-dom";
-
 
 
 function App() {
@@ -24,8 +23,6 @@ function App() {
                   <p>Welcome to our book store</p>
                   <nav><Link to={"/"}>Home</Link> | <Link to={"/books"}>Books</Link> | <Link to={"/create"}>Create Book</Link></nav>
               </header>
-
-              <Books />
 
               <Switch>
                   <Route path={"/books"}>

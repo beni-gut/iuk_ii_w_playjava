@@ -8,7 +8,7 @@ create table book (
     isbn10 varchar(20),
     description varchar(1000),
     publisher varchar(255),
-    pages int,
+    pages int NOT NULL,
     PRIMARY KEY (id)
 );
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Book from "./Book.jsx"
 
 
-
 class Books extends React.Component {
     constructor(props) {
         super(props);

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Book.css"
 
+
 class Book extends React.Component {
     constructor(props) {
         super(props);
@@ -18,5 +19,6 @@ class Book extends React.Component {
         )
     }
 }
+
 
 export default Book;
