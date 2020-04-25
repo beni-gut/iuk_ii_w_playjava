@@ -18,8 +18,38 @@ class CreateBook extends React.Component {
     }
 
     handleSubmit(event) {
-        alert("Create book with title " + this.state.title + "..." + " implement fetch POST")
+        if(!(this.testForEmpty())) {
+
+            fetch("api/books", {
+                method: "POST",
+                body: JSON.stringify(this.state),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    if (response.status !== 200) {
+                        console.log("Looks like there was a problem. Status Code: \n" + response.status)
+                        console.log(response.statusText)
+                    } else {
+                        const json = response.json();
+                        console.log(json);
+                    }
+                })
+        } else {
+            //Mal schauen was ich hier noch mache
+            console.log("There are empty fields")
+        }
+
         event.preventDefault();
+    }
+
+    //Das geht sicher besser...
+    testForEmpty() {
+        let index = ["title", "isbn13", "isbn10", "description", "publisher", "pages"];
+        let values = index.map(el => this.state[el]);
+        let test = values.includes("");
+        return test;
     }
 
     handleInputChange(event) {
@@ -34,51 +64,57 @@ class CreateBook extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={"container"}>
                 <form onSubmit={this.handleSubmit}>
-                    <label class="formLabel">
+                    <label className={"formLabel"}>
                         Title:
-                        <input type="text" name="title" class="formField" value={this.state.title}
+                        <input type="text" name="title" className={"formField"}
+                               value={this.state.title}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <label class="formLabel">
+                    <label className={"formLabel"} >
                         Description:
-                        <textarea name="description" class="formField formTextField" value={this.state.description}
+                        <textarea name="description" className={"formField formTextField"}
+                                  value={this.state.description}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <label class="formLabel">
+                    <label className={"formLabel"}>
                         ISBN13:
-                        <input type="text" name="isbn13" class="formField" value={this.state.isbn13}
+                        <input type="text" name="isbn13" className={"formField"}
+                               value={this.state.isbn13}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <label class="formLabel">
+                    <label className={"formLabel"}>
                         ISBN10:
-                        <input type="text" name="isbn10" class="formField" value={this.state.isbn10}
+                        <input type="text" name="isbn10" className={"formField"}
+                               value={this.state.isbn10}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <label class="formLabel">
+                    <label className={"formLabel"}>
                         Publisher:
-                        <input type="text" name="publisher" class="formField" value={this.state.publisher}
+                        <input type="text" name="publisher" className={"formField"}
+                               value={this.state.publisher}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <label class="formLabel">
+                    <label className={"formLabel"}>
                         Number of pages:
-                        <input type="number" name="title" class="formField" value={this.state.pages}
+                        <input type="number" name="pages" className={"formField"}
+                               value={this.state.pages}
                                onChange={this.handleInputChange}
                         />
                     </label>
                     <br />
-                    <input type="submit" value="Create Book"/>
+                    <input id="submitButton" type="submit" value="Create Book"/>
                 </form>
             </div>
         );

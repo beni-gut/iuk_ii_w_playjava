@@ -9,6 +9,7 @@ GET     /                       controllers.FrontendController.index()
 # Alle Bücher abfragen
 GET     /api/books              controllers.BookController.books(q: String ?= null)
 # Neues Buchdetail erfassen
++nocsrf
 POST    /api/books              controllers.BookController.create(request: Request)
 # Buchdetail mit ID aktualisieren
 PUT     /api/books/:id          controllers.BookController.update(id: Long, request: Request)

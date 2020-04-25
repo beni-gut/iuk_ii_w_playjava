@@ -1,6 +1,11 @@
+.container {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
 form {
     margin: auto;
-    width: 80vw;
+    width: 60vw;
     text-align: center;
 }
 
@@ -33,4 +38,20 @@ label {
 
 .formLabel {
     font-size: calc(10px + 1vmin);
+}
+
+#submitButton {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    color: #61dafb;
+    background-color: #282c34;
+    border: 1px solid transparent;
+    text-align: center;
+    vertical-align: middle;
+    padding: .375rem .75rem;
+    font-size: calc(10px + 1vmin);
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

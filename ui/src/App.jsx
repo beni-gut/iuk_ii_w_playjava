@@ -33,9 +33,14 @@ function App() {
                       <CreateBook />
                   </Route>
                   <Route path={"/"}>
-                      <p>Home Komponente bauen...</p>
+                      <p className="homeInfo">Welcome to our Book store.</p>
+                      <p className="homeInfo">You can view pre-added books or add your own.</p>
                   </Route>
               </Switch>
+
+              <footer className="App-footer">
+                  <p>Benjamin Gut</p>
+              </footer>
           </Router>
       </div>
   );
