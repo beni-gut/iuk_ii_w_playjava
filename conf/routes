@@ -5,6 +5,9 @@
 # An example controller showing a sample home page
 GET     /                       controllers.FrontendController.index()
 
+# NYTimes Bestseller
+GET     /api/bestseller         controllers.BestsellerController.bestseller()
+
 # Book routes
 # Alle Bücher abfragen
 GET     /api/books              controllers.BookController.books(q: String ?= null)

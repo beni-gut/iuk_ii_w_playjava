@@ -20,4 +20,6 @@ libraryDependencies ++= Seq(
   javaJpa,
   "org.hibernate" % "hibernate-core" % "5.4.9.Final",
 
+  javaWs,
+  ehcache
 )

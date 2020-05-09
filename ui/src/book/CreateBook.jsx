@@ -7,6 +7,7 @@ class CreateBook extends React.Component {
         super(props);
         this.state = {
             title: "",
+            author: "",
             isbn13: "",
             isbn10: "",
             description: "",
@@ -70,6 +71,14 @@ class CreateBook extends React.Component {
                         Title:
                         <input type="text" name="title" className={"formField"}
                                value={this.state.title}
+                               onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <br />
+                    <label className={"formLabel"}>
+                        Author:
+                        <input type="text" name="author" className={"formField"}
+                               value={this.state.author}
                                onChange={this.handleInputChange}
                         />
                     </label>

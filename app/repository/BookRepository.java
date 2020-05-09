@@ -56,6 +56,7 @@ public class BookRepository {
     private Book update(EntityManager em, Book book) {
         Book bookToUpdate = em.find(Book.class, book.getId());
         bookToUpdate.setTitle(book.getTitle());
+        bookToUpdate.setAuthor(book.getAuthor());
         bookToUpdate.setPublisher(book.getPublisher());
         bookToUpdate.setPages(book.getPages());
         bookToUpdate.setIsbn13(book.getIsbn13());

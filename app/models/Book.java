@@ -13,6 +13,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
+    private String author;
     private String isbn13;
     private String isbn10;
     private String description;
@@ -32,6 +33,13 @@ public class Book {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getIsbn13() {

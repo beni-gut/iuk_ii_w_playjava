@@ -14,6 +14,7 @@ class Book extends React.Component {
         return(
             <section className={"book"}>
                 <h1>{this.props.book.title}</h1>
+                <p>{this.props.book.author}</p>
                 <p>{this.props.book.description}</p>
             </section>
         )

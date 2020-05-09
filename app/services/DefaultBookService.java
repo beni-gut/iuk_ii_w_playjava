@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class DefaultBookService implements BookService {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Inject
     public DefaultBookService(BookRepository bookRepository) {
@@ -23,10 +23,11 @@ public class DefaultBookService implements BookService {
      */
     public Book getDummy() {
         final Book book = new Book();
-        book.setId(1l);
+        book.setId(1L);
         book.setTitle("Titel des Testbuches");
-        book.setIsbn13("978-3-16-148410-0");
-        book.setIsbn10("3161484100");
+        book.setAuthor("Phteven K");
+        book.setIsbn13("123-4-56-789101-1");
+        book.setIsbn10("1234567891");
         book.setDescription("Testbuch Beschreibung mit interessatem Text");
         book.setPublisher("Verlag XYZ");
         book.setPages(225);
