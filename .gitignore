@@ -13,7 +13,6 @@ null/
 # Test Ordner selber 
 test/
 
-conf/application.conf
 package-lock.json
 
 # Created by https://www.gitignore.io/api/linux,macos,windows,intellij,playframework
